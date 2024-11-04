@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodered
+  namespace: nodered
+  labels:
+    app: nodered
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodered
+  template:
+    metadata:
+      labels:
+        app: nodered
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        fsGroup: 1000
+      containers:
+        - name: nodered
+          image: nodered/node-red:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+            requests:
+              memory: "256Mi"
+              cpu: "0.2"
+          ports:
+            - containerPort: 1880
+          volumeMounts:
+            - name: nodered-claim
+              mountPath: /data/nodered
+      volumes:
+        - name: nodered-claim
+          persistentVolumeClaim:
+            claimName: nodered-claim
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: small-pv
+  labels:
+    app: nodered
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - minikube
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nodered-claim
+  namespace: nodered
+  labels:
+    app: nodered
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodered
+  namespace: nodered
+  labels:
+    app: nodered
+spec:
+  ports:
+    - port: 1880
+      targetPort: 1880
+  selector:
+    app: nodered
+  type: ClusterIP # Internal service
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-internal
+  namespace: nodered
+spec:
+  podSelector:
+    matchLabels:
+      app: nodered
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {} # Allow communication from all pods within the namespace
