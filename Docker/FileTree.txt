@@ -1,0 +1,9 @@
+Dockerfile which copies in local resources
+It can sometimes be useful to populate a Node-RED Docker image with files from a local directory (for example, if you want a whole project to be kept in a git repo). To do this, you’ll want your local directory to look like this:
+
+Dockerfile
+README.md
+package.json     # add any extra nodes your flow needs into your own package.json.
+flows.json       # the normal place Node-RED store your flows
+flows_cred.json  # credentials your flows may need
+settings.js      # your settings file
