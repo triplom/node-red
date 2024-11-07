@@ -51,7 +51,7 @@ Before raising a pull-request, please read our
 
 This project adheres to the [Contributor Covenant 1.4](http://contributor-covenant.org/version/1/4/).
  By participating, you are expected to uphold this code. Please report unacceptable
- behavior to any of the project's core team at team@nodered.org.
+ behavior to any of the project's core team at <team@nodered.org>.
 
 ## Authors
 
@@ -59,11 +59,10 @@ Node-RED is a project of the [OpenJS Foundation](http://openjsf.org).
 
 It is maintained by:
 
- * Nick O'Leary [@knolleary](http://twitter.com/knolleary)
- * Dave Conway-Jones [@ceejay](http://twitter.com/ceejay)
- * And many others...
-
+* Nick O'Leary [@knolleary](http://twitter.com/knolleary)
+* Dave Conway-Jones [@ceejay](http://twitter.com/ceejay)
+* And many others...
 
 ## Copyright and license
 
-Copyright OpenJS Foundation and other contributors, https://openjsf.org under [the Apache 2.0 license](LICENSE).
+Copyright OpenJS Foundation and other contributors, <https://openjsf.org> under [the Apache 2.0 license](LICENSE).
