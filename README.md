@@ -1,6 +1,6 @@
 # Node-RED
 
-https://nodered.org
+<https://nodered.org>
 
 [![Build Status](https://github.com/node-red/node-red/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/node-red/node-red/actions?query=branch%3Amaster)
 
@@ -10,7 +10,7 @@ Low-code programming for event-driven applications.
 
 ## Quick Start
 
-Check out https://nodered.org/docs/getting-started/ for full instructions on getting
+Check out <https://nodered.org/docs/getting-started/> for full instructions on getting
 started.
 
 1. `sudo npm install -g --unsafe-perm node-red`
@@ -29,7 +29,7 @@ If you want to run the latest code from git, here's how to get started:
 
 1. Clone the code:
 
-        git clone https://github.com/node-red/node-red.git
+        git clone https://github.com/triplom/node-red/node-red.git
         cd node-red
 
 2. Install the node-red dependencies
