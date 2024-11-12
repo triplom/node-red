@@ -28,13 +28,19 @@ This guide provides instructions on how to deploy Node-RED using Docker and Dock
 1. **Create a `docker-compose.yml` file in the same directory with the following content:**
 
     ```yaml
-    version: '3'
+    version: '3.9'
     services:
       node-red:
-         build: .
-         ports:
-            - "1880:1880"
-         container_name: node-red-container
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Lisbon
+    ports:
+      - "1880:1880"
+    container_name: node-red-container
+    networks:
+      - node-red-net
+    volumes:
+      - node-red-data:/data
     ```
 
 2. **Deploy the stack:**
